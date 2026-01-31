@@ -9,13 +9,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6858633963169450720}
+  - component: {fileID: -7375690745856024368}
   - component: {fileID: 7930478655373663073}
   - component: {fileID: 8773213187750347067}
   - component: {fileID: 8211803810655042306}
   - component: {fileID: 3981581729441631414}
+  - component: {fileID: 3797154819722360648}
   - component: {fileID: 1421976986644220695}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Orc
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,6 +39,19 @@ Transform:
   - {fileID: 2300204623461049305}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-7375690745856024368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621462457237799778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88cb811f2dc4b37aac76217d57072cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InGame::InGame.Characters.Enemy
+  movementSpeed: 1.22
 --- !u!114 &7930478655373663073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50,6 +65,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: InGame::InGame.Enemies.Enemy
   animator: {fileID: 5339903186405350963}
+  destinationSetter: {fileID: 8773213187750347067}
+  richAI: {fileID: 3981581729441631414}
+  characterController: {fileID: 1421976986644220695}
+  rvoController: {fileID: 3797154819722360648}
 --- !u!114 &8773213187750347067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +192,33 @@ MonoBehaviour:
   funnelSimplification: 0
   slowWhenNotFacingTarget: 1
   preventMovingBackwards: 0
+--- !u!114 &3797154819722360648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621462457237799778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560112f876f5746c780eca0d404e7139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.RVO.RVOController
+  version: 1073741824
+  radiusBackingField: 0.5
+  heightBackingField: 2
+  centerBackingField: 1
+  locked: 0
+  lockWhenNotMoving: 0
+  agentTimeHorizon: 2
+  obstacleTimeHorizon: 0.5
+  maxNeighbours: 6
+  layer: 1
+  collidesWith: -1
+  wallAvoidForce: 1
+  wallAvoidFalloff: 1
+  priority: 0.5
+  debug: 0
 --- !u!143 &1421976986644220695
 CharacterController:
   m_ObjectHideFlags: 0

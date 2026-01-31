@@ -15,7 +15,7 @@ MonoBehaviour:
   movementSpeed: 5.4
   rotationSpeed: 7
   jumpForce: 14.43
-  airMovement: 2.19
+  airMovement: 1.5
   gravity: 45.5
   damageEasingType: 2
   damageDistance: 2

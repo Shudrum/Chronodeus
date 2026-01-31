@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameConfiguration::GameConfiguration.GameConfiguration
   map: {fileID: 11400000, guid: 3795ea46b85b9724fa78e18ec0fc3a53, type: 2}
   player: {fileID: 11400000, guid: 8c771a602de25044099ddb65d17770c2, type: 2}
+  enemies: {fileID: 11400000, guid: 284e9a96397c4b144b88c736c3e0fe77, type: 2}

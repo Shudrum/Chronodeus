@@ -1,31 +1,54 @@
 ﻿using System.Collections;
 using InGame.GameConfiguration;
 using Pathfinding;
+using Pathfinding.RVO;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Utils;
 
 namespace InGame.Characters
 {
-  [RequireComponent(typeof(RichAI))]
+  [HideMonoScript]
   public class EnemyController : MonoBehaviour, IPushable
   {
+    // TODO: Move it on a proper configuration
+    private const float AccelerationRatio = 5f;
+
     private static readonly int AnimatorMovementSpeed = Animator.StringToHash("MovementSpeed");
 
+    [Title("Enemy definition")]
     [SerializeField]
     private Animator animator;
 
-    private CharacterController _characterController;
-    private Coroutine _damageCoroutine;
-    private RichAI _richAI;
+    [SerializeField]
+    private AIDestinationSetter destinationSetter;
 
-    private void Awake() {
-      _characterController = GetComponent<CharacterController>();
-      _richAI = GetComponent<RichAI>();
+    [SerializeField]
+    private RichAI richAI;
+
+    [SerializeField]
+    private CharacterController characterController;
+
+    [SerializeField]
+    private RVOController rvoController;
+
+    private Coroutine _damageCoroutine;
+
+    // TODO: Magic number to configure
+    public bool ReachedDestination => richAI.remainingDistance < 0.2f;
+
+    public void UpdateAnimation() {
+      animator.SetFloat(AnimatorMovementSpeed, richAI.velocity.magnitude);
     }
 
-    // TODO: Move it on a manager update to avoid Unity's API calls.
-    private void Update() {
-      animator.SetFloat(AnimatorMovementSpeed, _richAI.velocity.magnitude);
+    public void SetMovementSpeed(float movementSpeed) {
+      richAI.acceleration = movementSpeed * AccelerationRatio;
+      richAI.maxSpeed = movementSpeed;
+    }
+
+    public void SetDestination(Transform destination) {
+      destinationSetter.target = destination;
+      rvoController.priority = Random.Range(0.01f, 0.99f);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {
@@ -59,7 +82,7 @@ namespace InGame.Characters
         var frameDistance = frameTotalDistance - elapsedDistance;
         elapsedDistance += frameDistance;
 
-        _characterController.Move(direction * frameDistance);
+        characterController.Move(direction * frameDistance);
         yield return null;
       }
     }

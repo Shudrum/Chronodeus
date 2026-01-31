@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Hittable
+  - Destructible
   layers:
   - Default
   - TransparentFX

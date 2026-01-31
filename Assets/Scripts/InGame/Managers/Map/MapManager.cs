@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using InGame.GameConfiguration;
 using InGame.Map;
 using UnityEngine;
@@ -13,6 +13,7 @@ namespace InGame.Managers.Map
     [SerializeField]
     private AstarPath pathfind;
 
+    public List<Transform> Destinations { get; private set; } = new();
     public GridManager GridManager { get; private set; }
 
     protected override void Awake() {
@@ -26,6 +27,7 @@ namespace InGame.Managers.Map
       ResizePathfind();
       GridManager.InstantiateObjects();
       ComputePathfind();
+      GatherDestinations();
     }
 
     #if UNITY_EDITOR
@@ -64,6 +66,16 @@ namespace InGame.Managers.Map
 
     private void ComputePathfind() {
       AstarPath.active.data.recastGraph.Scan();
+    }
+
+    private void GatherDestinations() {
+      var destinations = FindObjectsByType<Destination>(
+        FindObjectsInactive.Include,
+        FindObjectsSortMode.None
+      );
+      foreach (var destination in destinations) {
+        Destinations.Add(destination.transform);
+      }
     }
   }
 }
