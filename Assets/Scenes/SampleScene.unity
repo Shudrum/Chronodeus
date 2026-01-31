@@ -668,7 +668,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 0
   maxNearestNodeDistance: 100
   scanOnStartup: 0
   fullGetNearestSearch: 0
@@ -764,7 +764,7 @@ MonoBehaviour:
   movementPlane: 0
   useNavmeshAsObstacle: 0
   drawQuadtree: 0
---- !u!1001 &3711174151567356020
+--- !u!1001 &9005045687587017732
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -778,7 +778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 886336651803606160, guid: d24043a8c22a8ad41b462242d7da30c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 886336651803606160, guid: d24043a8c22a8ad41b462242d7da30c9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -786,7 +786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 886336651803606160, guid: d24043a8c22a8ad41b462242d7da30c9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 886336651803606160, guid: d24043a8c22a8ad41b462242d7da30c9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -829,4 +829,4 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 717432157}
   - {fileID: 1832987332}
-  - {fileID: 3711174151567356020}
+  - {fileID: 9005045687587017732}
