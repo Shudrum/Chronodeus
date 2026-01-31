@@ -32,6 +32,7 @@ namespace InGame.Characters
 
     private static readonly int AnimatorAttack = Animator.StringToHash("Attack");
     private static readonly int AnimatorMovementSpeed = Animator.StringToHash("MovementSpeed");
+    private static readonly int AnimatorInAir = Animator.StringToHash("InAir");
 
     private readonly List<int> _attackCollidedInstanceIds = new();
 
@@ -214,6 +215,7 @@ namespace InGame.Characters
 
     private void ApplyVerticalAcceleration() {
       _characterController.Move(Vector3.up * _verticalAcceleration * Time.deltaTime);
+      animator.SetBool(AnimatorInAir, !_characterController.isGrounded);
     }
 
     private void TryJump() {

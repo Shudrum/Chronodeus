@@ -15,8 +15,8 @@ namespace InGame.Characters
     private Animator animator;
 
     private CharacterController _characterController;
-    private Coroutine           _damageCoroutine;
-    private RichAI              _richAI;
+    private Coroutine _damageCoroutine;
+    private RichAI _richAI;
 
     private void Awake() {
       _characterController = GetComponent<CharacterController>();
@@ -29,8 +29,9 @@ namespace InGame.Characters
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {
-      if (hit.collider.CompareTag("Player"))
+      if (hit.collider.CompareTag("Player")) {
         hit.gameObject.GetComponent<PlayerController>().Push(hit.normal * -1f);
+      }
     }
 
     public void Push(Vector3 direction) {
