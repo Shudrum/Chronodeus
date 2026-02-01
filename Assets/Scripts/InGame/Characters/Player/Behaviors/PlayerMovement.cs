@@ -67,10 +67,9 @@ namespace InGame.Characters.Player.Behaviors
 
       if (canMove) {
         characterController.Move(_movementDirection.ToVector3() * (_configuration.MovementSpeed * Time.deltaTime));
-        animator.SetFloat(AnimatorMovementSpeed, _movementDirection.magnitude * _configuration.MovementSpeed);
-      } else {
-        animator.SetFloat(AnimatorMovementSpeed, 0f);
       }
+
+      animator.SetFloat(AnimatorMovementSpeed, _movementDirection.magnitude * _configuration.MovementSpeed);
     }
 
     private void Jump() {

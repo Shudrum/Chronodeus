@@ -13,10 +13,6 @@ namespace InGame.Characters.Player.Behaviors
     [Title("Components")]
     [SerializeField] private Animator animator;
 
-    [Title("Weapons display")]
-    [SerializeField] private GameObject idleSword;
-    [SerializeField] private GameObject attackSword;
-
     private int AnimatorAttack { get; } = Animator.StringToHash("Attack");
 
     private readonly List<int> _attackCollidedInstanceIds = new();
@@ -59,13 +55,10 @@ namespace InGame.Characters.Player.Behaviors
                       && _inputs.PlayerAttackPressed;
 
       if (canAttack) {
-        animator.SetTrigger(AnimatorAttack);
+        animator.SetBool(AnimatorAttack, true);
         _state.Add(PlayerState.Attacking);
         _attackAnimationStarted = false;
         _attackCollidedInstanceIds.Clear();
-
-        idleSword.SetActive(false);
-        attackSword.SetActive(true);
       }
     }
 
@@ -81,8 +74,7 @@ namespace InGame.Characters.Player.Behaviors
 
       if (!stateInfo.IsName("Attack")) {
         _state.Remove(PlayerState.Attacking);
-        idleSword.SetActive(true);
-        attackSword.SetActive(false);
+        animator.SetBool(AnimatorAttack, false);
       }
     }
   }

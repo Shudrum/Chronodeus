@@ -10,10 +10,6 @@ namespace InGame.Characters
     [SerializeField]
     private PlayerAttack playerAttack;
 
-    private void Awake() {
-      gameObject.SetActive(false);
-    }
-
     private void OnTriggerEnter(Collider other) {
       playerAttack.OnWeaponHit(other);
     }
