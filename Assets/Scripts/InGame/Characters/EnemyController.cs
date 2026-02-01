@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using InGame.Characters.Player.Behaviors;
 using InGame.GameConfiguration;
 using Pathfinding;
 using Pathfinding.RVO;
@@ -35,7 +36,13 @@ namespace InGame.Characters
     private Coroutine _damageCoroutine;
 
     // TODO: Magic number to configure
-    public bool ReachedDestination => richAI.remainingDistance < 0.2f;
+    [ShowInInspector]
+    [HideInEditorMode]
+    public bool ReachedDestination => richAI.remainingDistance < 0.3f;
+
+    [ShowInInspector]
+    [HideInEditorMode]
+    public float RemainingDistance => richAI.remainingDistance;
 
     public void UpdateAnimation() {
       animator.SetFloat(AnimatorMovementSpeed, richAI.velocity.magnitude);
@@ -53,7 +60,7 @@ namespace InGame.Characters
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {
       if (hit.collider.CompareTag("Player")) {
-        hit.gameObject.GetComponent<PlayerController>().Push(hit.normal * -1f);
+        hit.gameObject.GetComponent<PlayerDamages>().Push(hit.normal * -1f);
       }
     }
 

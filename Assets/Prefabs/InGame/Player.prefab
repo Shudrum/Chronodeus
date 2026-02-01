@@ -134,6 +134,9 @@ GameObject:
   - component: {fileID: 6272946398444072179}
   - component: {fileID: 6529042048623571699}
   - component: {fileID: 2820048771860219849}
+  - component: {fileID: 4472452257195427545}
+  - component: {fileID: 964233844687841108}
+  - component: {fileID: 369227596670909758}
   m_Layer: 0
   m_Name: Player Controller
   m_TagString: Player
@@ -194,11 +197,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a804adc1cd5a045adf4adabdd3ea36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: InGame::InGame.Player.PlayerController
-  camera: {fileID: 5733910298048399818}
-  meshTransform: {fileID: 6405995509403545702}
+  characterController: {fileID: 6529042048623571699}
+  playerBehaviors:
+  - {fileID: 4472452257195427545}
+  - {fileID: 964233844687841108}
+  - {fileID: 369227596670909758}
+--- !u!114 &4472452257195427545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602225535912535355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9c0f694e79422a9cc44be4c26623a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InGame::InGame.Characters.Player.PlayerMovement
+  characterController: {fileID: 6529042048623571699}
+  visualTransform: {fileID: 6405995509403545702}
+  animator: {fileID: 9110921431732304763}
+--- !u!114 &964233844687841108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602225535912535355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833b312a60c246a68f207068460868d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InGame::InGame.Characters.Player.Behaviors.PlayerAttack
   animator: {fileID: 9110921431732304763}
   idleSword: {fileID: 455881904704368186}
   attackSword: {fileID: 6875372937529599429}
+--- !u!114 &369227596670909758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602225535912535355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30cfb52be2054a49a750c9af56585ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InGame::InGame.Characters.Player.Behaviors.PlayerDamages
+  characterController: {fileID: 6529042048623571699}
 --- !u!1 &901027480034305041
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +502,7 @@ Transform:
   - {fileID: 7118132793310592618}
   - {fileID: 3810869326054245}
   - {fileID: 9076989984301891352}
+  - {fileID: 1107719337292372678}
   m_Father: {fileID: 6937165326570336068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2403728037601466831
@@ -1134,7 +1181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229c46fe8c374d8db70274484bce7b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: InGame::InGame.Characters.Weapon
-  playerController: {fileID: 2820048771860219849}
+  playerAttack: {fileID: 964233844687841108}
 --- !u!54 &8541292368827771721
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1240,3 +1287,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: InGame::InGame.Characters.CameraPivot
   transformToFollow: {fileID: 6272946398444072179}
+--- !u!1 &8942558983134113619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1107719337292372678}
+  m_Layer: 0
+  m_Name: Hauling Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1107719337292372678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8942558983134113619}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.78, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4044399451810353919}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

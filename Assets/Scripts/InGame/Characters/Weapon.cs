@@ -1,18 +1,21 @@
-﻿using UnityEngine;
+﻿using InGame.Characters.Player.Behaviors;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace InGame.Characters
 {
+  [HideMonoScript]
   public class Weapon : MonoBehaviour
   {
     [SerializeField]
-    private PlayerController playerController;
+    private PlayerAttack playerAttack;
 
     private void Awake() {
       gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other) {
-      playerController.WeaponHit(other);
+      playerAttack.OnWeaponHit(other);
     }
   }
 }

@@ -6,7 +6,7 @@ namespace InGame.GameConfiguration
 {
   [HideMonoScript]
   [CreateAssetMenu(fileName = "Map", menuName = "Chronodeus/Configuration/Map")]
-  public class Map : ScriptableObject
+  public class MapConfiguration : ScriptableObject
   {
     [TabGroup("General")]
     [Title("Size")]
@@ -22,10 +22,10 @@ namespace InGame.GameConfiguration
     [TabGroup("Generation")]
     [SerializeField]
     [ListDrawerSettings(ShowFoldout = false, DefaultExpandedState = true)]
-    private MapGenerator[] generators;
+    private MapGeneratorConfiguration[] generators;
 
     public MapSize Size => new(width, depth);
 
-    public MapGenerator[] Generators => generators;
+    public MapGeneratorConfiguration[] Generators => generators;
   }
 }

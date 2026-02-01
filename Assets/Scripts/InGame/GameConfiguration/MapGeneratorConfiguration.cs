@@ -12,7 +12,7 @@ namespace InGame.GameConfiguration
   }
 
   [Serializable]
-  public class MapGenerator
+  public class MapGeneratorConfiguration
   {
     [Title("Generator type")]
     [SerializeField]

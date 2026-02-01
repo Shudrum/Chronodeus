@@ -21,7 +21,7 @@ namespace InGame.Managers.Map
       }
     }
 
-    private static void ExecutePerlinGenerator(MapGenerator mapGenerator, GridManager gridManager) {
+    private static void ExecutePerlinGenerator(MapGeneratorConfiguration mapGenerator, GridManager gridManager) {
       var mapSize = Configuration.Instance.Map.Size;
 
       var step = 1f / Mathf.Max(mapSize.Width, mapSize.Depth);
@@ -44,7 +44,7 @@ namespace InGame.Managers.Map
       }
     }
 
-    private static void ExecuteRangeGenerator(MapGenerator mapGenerator, GridManager gridManager) {
+    private static void ExecuteRangeGenerator(MapGeneratorConfiguration mapGenerator, GridManager gridManager) {
       var mapSize = Configuration.Instance.Map.Size;
 
       var totalTiles = mapSize.Width * mapSize.Depth;

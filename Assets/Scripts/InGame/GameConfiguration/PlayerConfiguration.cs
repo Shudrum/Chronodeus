@@ -6,7 +6,7 @@ namespace InGame.GameConfiguration
 {
   [HideMonoScript]
   [CreateAssetMenu(fileName = "Player", menuName = "Chronodeus/Configuration/Player")]
-  public class Player : ScriptableObject
+  public class PlayerConfiguration : ScriptableObject
   {
     [Title("Movement")]
     [SerializeField]

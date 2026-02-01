@@ -9,17 +9,17 @@ namespace InGame.GameConfiguration
   {
     [Title("Configuration files references")]
     [SerializeField]
-    private Map map;
+    private MapConfiguration map;
 
     [SerializeField]
-    private Player player;
+    private PlayerConfiguration player;
 
     [SerializeField]
-    private Enemies enemies;
+    private EnemiesConfiguration enemies;
 
-    public Map Map => map;
-    public Player Player => player;
-    public Enemies Enemies => enemies;
+    public MapConfiguration Map => map;
+    public PlayerConfiguration Player => player;
+    public EnemiesConfiguration Enemies => enemies;
 
     private static bool _instanceLoaded;
     private static Configuration _instance;

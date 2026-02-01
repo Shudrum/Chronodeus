@@ -6,7 +6,7 @@ namespace InGame.GameConfiguration
 {
   [HideMonoScript]
   [CreateAssetMenu(fileName = "Enemies", menuName = "Chronodeus/Configuration/Enemies")]
-  public class Enemies : ScriptableObject
+  public class EnemiesConfiguration : ScriptableObject
   {
     [SerializeField]
     [ListDrawerSettings(ShowFoldout = false, DefaultExpandedState = true)]
