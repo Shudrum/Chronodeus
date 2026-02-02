@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameConfiguration::GameConfiguration.Map
   width: 33
   depth: 33
-  grassNoise: 4.99
-  grassDensity: 0.303
-  cave: {fileID: 1669944949016718716, guid: cdd2c40c71a8e2441b00a45deb85ab71, type: 3}
-  grass: {fileID: 5681273289967480815, guid: f54e651e64c0d50479f588ac449353d5, type: 3}
   generators:
   - type: 1
     mapObject: {fileID: 1669944949016718716, guid: cdd2c40c71a8e2441b00a45deb85ab71, type: 3}

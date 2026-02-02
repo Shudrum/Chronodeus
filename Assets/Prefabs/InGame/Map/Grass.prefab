@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2252627205876848574}
   - component: {fileID: 4175948306963679733}
   - component: {fileID: 2610093309396492119}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cut
   m_TagString: Destructible
   m_Icon: {fileID: 0}
@@ -99,12 +99,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9116674789665455524}
-  - component: {fileID: 1496016103522344871}
   - component: {fileID: 5681273289967480815}
   - component: {fileID: 765941199202106509}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grass
-  m_TagString: Hittable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,27 +125,6 @@ Transform:
   - {fileID: 2252627205876848574}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1496016103522344871
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8213234257134805739}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 0.6, z: 1}
-  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!114 &5681273289967480815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: InGame::InGame.Managers.Map.MapElement
   width: 1
   depth: 1
+  isHaulable: 0
 --- !u!114 &765941199202106509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef308d142f948f1859fba4399647366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: InGame::InGame.Map.Behaviors.Grass
-  longGrass: {fileID: 9161701625689863465}
   cutGrass: {fileID: 4379923375207871547}
 --- !u!1 &9161701625689863465
 GameObject:
@@ -186,9 +164,11 @@ GameObject:
   - component: {fileID: 6714005667375977600}
   - component: {fileID: 6855568511969299533}
   - component: {fileID: 8924573881870757062}
-  m_Layer: 0
+  - component: {fileID: 5825953582689442537}
+  - component: {fileID: 5376747899635210312}
+  m_Layer: 8
   m_Name: Tall
-  m_TagString: Destructible
+  m_TagString: Hittable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,3 +245,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5825953582689442537
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9161701625689863465}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.6, z: 1}
+  m_Center: {x: 0, y: 0.3, z: 0}
+--- !u!114 &5376747899635210312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9161701625689863465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef308d142f948f1859fba4399647366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InGame::InGame.Map.Behaviors.Grass
+  cutGrass: {fileID: 4379923375207871547}

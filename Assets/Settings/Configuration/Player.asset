@@ -21,3 +21,8 @@ MonoBehaviour:
   damageDistance: 2
   damageDuration: 0.3
   damageInvincibilityTimeFrame: 0.3
+  haulMoveMultiplier: 0.285
+  buildDuration: 0.433
+  buildEasingType: 10
+  materialOk: {fileID: 2100000, guid: 5a504b9ac7fb2f14b9b56308affbc9ca, type: 2}
+  materialNotOk: {fileID: 2100000, guid: 3d74fb7062b5c76459bafa82ee8880a3, type: 2}

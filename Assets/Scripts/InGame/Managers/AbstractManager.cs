@@ -2,6 +2,7 @@
 
 namespace InGame.Managers
 {
+  [DefaultExecutionOrder(-100)]
   public abstract class AbstractManager<T> : MonoBehaviour where T : AbstractManager<T>
   {
     public static T Instance;

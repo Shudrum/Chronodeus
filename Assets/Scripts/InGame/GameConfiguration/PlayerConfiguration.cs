@@ -9,46 +9,49 @@ namespace InGame.GameConfiguration
   public class PlayerConfiguration : ScriptableObject
   {
     [Title("Movement")]
-    [SerializeField]
     [Range(0.1f, 30f)]
-    private float movementSpeed = 2f;
+    [SerializeField] private float movementSpeed = 2f;
 
-    [SerializeField]
     [Range(0.1f, 30f)]
-    private float rotationSpeed = 20f;
+    [SerializeField] private float rotationSpeed = 20f;
 
-    [SerializeField]
     [Range(1f, 20f)]
-    private float jumpForce = 10f;
+    [SerializeField] private float jumpForce = 10f;
 
-    [SerializeField]
     [Range(0f, 30f)]
     [LabelText("Air movement acceleration")]
-    private float airMovement = 0.5f;
+    [SerializeField] private float airMovement = 0.5f;
 
-    [SerializeField]
     [Range(1f, 50f)]
-    private float gravity = 9.81f;
+    [SerializeField] private float gravity = 9.81f;
 
     [Title("Damage")]
-    [SerializeField]
     [LabelText("Easing Type")]
-    private EasingType damageEasingType;
+    [SerializeField] private EasingType damageEasingType;
 
-    [SerializeField]
     [LabelText("Recoil Distance")]
     [Range(0.1f, 5f)]
-    private float damageDistance;
+    [SerializeField] private float damageDistance;
 
-    [SerializeField]
     [LabelText("Recoil Duration")]
     [Range(0.1f, 5f)]
-    private float damageDuration;
+    [SerializeField] private float damageDuration;
 
-    [SerializeField]
     [LabelText("Invincibility Frame")]
     [Range(0.1f, 5f)]
-    private float damageInvincibilityTimeFrame = 0.3f;
+    [SerializeField] private float damageInvincibilityTimeFrame = 0.3f;
+
+    [Title("Hauling")]
+    [Range(0.01f, 1f)]
+    [SerializeField] private float haulMoveMultiplier = 0.5f;
+
+    [Range(0.1f, 3f)]
+    [SerializeField] private float buildDuration = 0.6f;
+
+    [SerializeField] private EasingType buildEasingType = EasingType.Linear;
+
+    [SerializeField] private Material materialOk;
+    [SerializeField] private Material materialNotOk;
 
     public float MovementSpeed => movementSpeed;
     public float RotationSpeed => rotationSpeed;
@@ -59,5 +62,10 @@ namespace InGame.GameConfiguration
     public float DamageDistance => damageDistance;
     public float DamageDuration => damageDuration;
     public float DamageInvincibilityTimeFrame => damageInvincibilityTimeFrame;
+    public float HaulMoveMultiplier => haulMoveMultiplier;
+    public float BuildDuration => buildDuration;
+    public EasingType BuildEasingType => buildEasingType;
+    public Material MaterialOk => materialOk;
+    public Material MaterialNotOk => materialNotOk;
   }
 }

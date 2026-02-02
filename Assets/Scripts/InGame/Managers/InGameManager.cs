@@ -7,10 +7,10 @@ namespace InGame.Managers
   public class InGameManager : MonoBehaviour
   {
     [SerializeField]
-    private MonoBehaviour[] managers;
+    private MonoBehaviour[] updatableManagers;
 
     private void Update() {
-      foreach (var manager in managers) {
+      foreach (var manager in updatableManagers) {
         if (manager is IUpdatableManager updatableManager) {
           updatableManager.OnUpdate();
         }

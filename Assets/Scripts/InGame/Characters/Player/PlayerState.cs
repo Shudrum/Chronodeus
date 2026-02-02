@@ -6,10 +6,10 @@ namespace InGame.Characters.Player
   public enum PlayerState
   {
     Grounded = 1,
-    // 2,
+    IsInvincible = 2,
     Jumping = 4,
     Attacking = 8,
-    Hauling = 16,
-    IsInvincible = 32,
+    HaulingAnimated = 16,
+    Hauling = 32,
   }
 }

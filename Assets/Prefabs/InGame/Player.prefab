@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 4472452257195427545}
   - component: {fileID: 964233844687841108}
   - component: {fileID: 369227596670909758}
+  - component: {fileID: 1058456722189997342}
   m_Layer: 0
   m_Name: Player Controller
   m_TagString: Player
@@ -108,10 +109,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: InGame::InGame.Player.PlayerController
   characterController: {fileID: 6529042048623571699}
-  playerBehaviors:
-  - {fileID: 4472452257195427545}
-  - {fileID: 964233844687841108}
-  - {fileID: 369227596670909758}
+  movement: {fileID: 4472452257195427545}
+  attack: {fileID: 964233844687841108}
+  damages: {fileID: 369227596670909758}
+  hauling: {fileID: 1058456722189997342}
 --- !u!114 &4472452257195427545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +154,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: InGame::InGame.Characters.Player.Behaviors.PlayerDamages
   characterController: {fileID: 6529042048623571699}
+--- !u!114 &1058456722189997342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602225535912535355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924364dfacd4418589a7984232dc68f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: InGame::InGame.Characters.Player.Behaviors.PlayerHauling
+  visualTransform: {fileID: 2259776412434889798}
+  animator: {fileID: 3222395791451080357}
+  haulPivot: {fileID: 5357389054190318954}
 --- !u!1 &3258235987499056229
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +352,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: InGame::InGame.Characters.CameraPivot
   transformToFollow: {fileID: 6272946398444072179}
+--- !u!1 &8799114941855254427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5357389054190318954}
+  m_Layer: 0
+  m_Name: HaulPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5357389054190318954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8799114941855254427}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.792, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9194779832409579231}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1789881586615950253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -502,7 +549,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -1779902225218058894, guid: 2d820d7f06f1f094d88026a3be767a43, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5357389054190318954}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2d820d7f06f1f094d88026a3be767a43, type: 3}
       insertIndex: -1
@@ -615,3 +665,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: InGame::InGame.Characters.Weapon
   playerAttack: {fileID: 964233844687841108}
+--- !u!4 &9194779832409579231 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1779902225218058894, guid: 2d820d7f06f1f094d88026a3be767a43, type: 3}
+  m_PrefabInstance: {fileID: 1789881586615950253}
+  m_PrefabAsset: {fileID: 0}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using InGame.GameConfiguration;
 using InGame.Map;
 using UnityEngine;
@@ -7,48 +8,28 @@ namespace InGame.Managers.Map
 {
   public class MapManager : AbstractManager<MapManager>
   {
-    [SerializeField]
-    private Transform ground;
-
-    [SerializeField]
-    private AstarPath pathfind;
+    [SerializeField] private Transform ground;
+    [SerializeField] private AstarPath pathfind;
 
     public List<Transform> Destinations { get; private set; } = new();
-    public GridManager GridManager { get; private set; }
-
-    protected override void Awake() {
-      base.Awake();
-      GridManager = new GridManager();
-      ProceduralGenerator.Generate(GridManager);
-    }
 
     private void Start() {
+      StartCoroutine(BuildMapCoroutine());
+    }
+
+    public IEnumerator BuildMapCoroutine() {
       ResizeGround();
       ResizePathfind();
-      GridManager.InstantiateObjects();
+      yield return null;
+
+      var generator = new ProceduralGenerator();
+      yield return generator.Generate();
+
+      // GridManager.InstantiateObjects();
       ComputePathfind();
       GatherDestinations();
+
     }
-
-    #if UNITY_EDITOR
-    private void OnDrawGizmos() {
-      if (!Application.isPlaying) return;
-
-      var mapSize = Configuration.Instance.Map.Size;
-
-      for (var x = 0; x < mapSize.Width; x++) {
-        for (var y = 0; y < mapSize.Depth; y++) {
-          var position = new GridPosition(x, y);
-          if (!GridManager.TileIsFree(position)) {
-            Gizmos.color = new Color(1f, 0f, 0f, 0.25f);
-            Gizmos.DrawCube(position.WorldPosition, new Vector3(1f, 0.2f, 1f));
-            Gizmos.color = new Color(1f, 0f, 0f);
-            Gizmos.DrawWireCube(position.WorldPosition, new Vector3(1f, 0.2f, 1f));
-          }
-        }
-      }
-    }
-    #endif
 
     private void ResizeGround() {
       var mapSize = Configuration.Instance.Map.Size;

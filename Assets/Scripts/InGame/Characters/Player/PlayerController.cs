@@ -1,3 +1,4 @@
+using InGame.Characters.Player.Behaviors;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utils;
@@ -12,25 +13,40 @@ namespace InGame.Characters.Player
     [SerializeField] private CharacterController characterController;
 
     [Title("Behaviors")]
-    [SerializeField] private MonoBehaviour[] playerBehaviors;
+    [SerializeField] private PlayerMovement movement;
+    [SerializeField] private PlayerAttack attack;
+    [SerializeField] private PlayerDamages damages;
+    [SerializeField] private PlayerHauling hauling;
+
+    public static PlayerController Instance { get; private set; }
+
+    public PlayerHauling Hauling => hauling;
 
     private readonly StateMachine<PlayerState> _state = new();
 
+    private void Awake() {
+      Instance = this;
+    }
+
     private void Start() {
-      foreach (var behavior in playerBehaviors) {
-        if (behavior is IPlayerBehavior playerBehavior) {
-          playerBehavior.Initialize(_state);
-        }
-      }
+      movement.Initialize(_state);
+      attack.Initialize(_state);
+      damages.Initialize(_state);
+      hauling.Initialize(_state);
     }
 
     private void Update() {
       UpdateGroundedState();
 
-      foreach (var behavior in playerBehaviors) {
-        if (behavior is IPlayerBehavior playerBehavior) {
-          playerBehavior.UpdateBehavior();
-        }
+      movement.UpdateBehavior();
+      attack.UpdateBehavior();
+      damages.UpdateBehavior();
+      hauling.UpdateBehavior();
+    }
+
+    private void OnDestroy() {
+      if (Instance == this) {
+        Instance = null;
       }
     }
 

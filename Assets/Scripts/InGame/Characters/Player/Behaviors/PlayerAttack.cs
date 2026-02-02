@@ -52,6 +52,7 @@ namespace InGame.Characters.Player.Behaviors
     private void StartAttack() {
       var canAttack = _state.Has(PlayerState.Grounded)
                       && !_state.Has(PlayerState.Attacking)
+                      && !_state.Has(PlayerState.Hauling)
                       && _inputs.PlayerAttackPressed;
 
       if (canAttack) {

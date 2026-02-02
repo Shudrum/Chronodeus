@@ -1,31 +1,37 @@
-﻿using InGame.GameConfiguration;
+﻿using System.Collections;
+using InGame.GameConfiguration;
 using InGame.Map;
 using UnityEngine;
 
 namespace InGame.Managers.Map
 {
-  public static class ProceduralGenerator
+  public class ProceduralGenerator
   {
-    public static void Generate(GridManager gridManager) {
-      var generators = Configuration.Instance.Map.Generators;
+    private const int MaxInstantiatePerFrame = 5;
+
+    private readonly MapConfiguration _mapConfiguration = Configuration.Instance.Map;
+
+    public IEnumerator Generate() {
+      var generators = _mapConfiguration.Generators;
 
       foreach (var generator in generators) {
         switch (generator.Type) {
           case GeneratorType.Perlin:
-            ExecutePerlinGenerator(generator, gridManager);
+            yield return ExecutePerlinGenerator(generator);
             break;
           case GeneratorType.Range:
-            ExecuteRangeGenerator(generator, gridManager);
+            yield return ExecuteRangeGenerator(generator);
             break;
         }
       }
     }
 
-    private static void ExecutePerlinGenerator(MapGeneratorConfiguration mapGenerator, GridManager gridManager) {
-      var mapSize = Configuration.Instance.Map.Size;
+    private IEnumerator ExecutePerlinGenerator(MapGeneratorConfiguration mapGenerator) {
+      var mapSize = _mapConfiguration.Size;
 
       var step = 1f / Mathf.Max(mapSize.Width, mapSize.Depth);
       var noiseOffset = new Vector2(Random.Range(0f, 10000f), Random.Range(0f, 10000f));
+      var instantiated = 0;
 
       for (var x = 0; x < mapSize.Width; x++) {
         for (var y = 0; y < mapSize.Depth; y++) {
@@ -37,15 +43,23 @@ namespace InGame.Managers.Map
           if (value < mapGenerator.Density) continue;
 
           var position = new GridPosition(x, y);
-          if (gridManager.TileIsFree(position)) {
-            gridManager.PlaceObject(position, mapGenerator.MapObject);
+          if (MapRaycaster.TileIsFree(position)) {
+            mapGenerator.MapObject.InstantiateAt(position);
+            instantiated++;
+          }
+
+          if (instantiated >= MaxInstantiatePerFrame) {
+            instantiated = 0;
+            yield return null;
           }
         }
       }
+
+      yield return null;
     }
 
-    private static void ExecuteRangeGenerator(MapGeneratorConfiguration mapGenerator, GridManager gridManager) {
-      var mapSize = Configuration.Instance.Map.Size;
+    private IEnumerator ExecuteRangeGenerator(MapGeneratorConfiguration mapGenerator) {
+      var mapSize = _mapConfiguration.Size;
 
       var totalTiles = mapSize.Width * mapSize.Depth;
       var totalObjects = mapGenerator.AmountFixed > 0
@@ -60,24 +74,24 @@ namespace InGame.Managers.Map
 
       var iterations = 0;
       var placedObjects = 0;
+      var instantiated = 0;
       while (placedObjects < totalObjects && iterations < 1000) {
         iterations++;
         var randomPosition = new GridPosition(Random.Range(minX, maxX), Random.Range(minY, maxY));
 
-        var canBePlaced = true;
-        for (var x = 0; x < objectSize.Width; x++) {
-          for (var y = 0; y < objectSize.Depth; y++) {
-            if (!gridManager.TileIsFree(new GridPosition(randomPosition.X + x, randomPosition.Y + y))) {
-              canBePlaced = false;
-            }
-          }
+        if (MapRaycaster.MapObjectZoneIsFree(mapGenerator.MapObject, randomPosition)) {
+          mapGenerator.MapObject.InstantiateAt(randomPosition);
+          placedObjects++;
+          instantiated++;
         }
 
-        if (canBePlaced) {
-          gridManager.PlaceObject(randomPosition, mapGenerator.MapObject);
-          placedObjects++;
+        if (instantiated >= MaxInstantiatePerFrame) {
+          instantiated = 0;
+          yield return null;
         }
       }
+
+      yield return null;
     }
   }
 }

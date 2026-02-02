@@ -65,11 +65,16 @@ namespace InGame.Characters.Player.Behaviors
       var canMove = !_state.Has(PlayerState.Attacking)
                     && _movementDirection != Vector2.zero;
 
-      if (canMove) {
-        characterController.Move(_movementDirection.ToVector3() * (_configuration.MovementSpeed * Time.deltaTime));
+      var movementSpeed = _configuration.MovementSpeed;
+      if (_state.Has(PlayerState.Hauling)) {
+        movementSpeed *= _configuration.HaulMoveMultiplier;
       }
 
-      animator.SetFloat(AnimatorMovementSpeed, _movementDirection.magnitude * _configuration.MovementSpeed);
+      if (canMove) {
+        characterController.Move(_movementDirection.ToVector3() * (movementSpeed * Time.deltaTime));
+      }
+
+      animator.SetFloat(AnimatorMovementSpeed, _movementDirection.magnitude * movementSpeed);
     }
 
     private void Jump() {
