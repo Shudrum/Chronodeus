@@ -63,6 +63,7 @@ namespace InGame.Characters.Player.Behaviors
 
     private void Move() {
       var canMove = !_state.Has(PlayerState.Attacking)
+                    && !_state.Has(PlayerState.HaulingAnimated)
                     && _movementDirection != Vector2.zero;
 
       var movementSpeed = _configuration.MovementSpeed;

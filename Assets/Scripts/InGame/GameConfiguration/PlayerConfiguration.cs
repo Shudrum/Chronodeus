@@ -1,5 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace InGame.GameConfiguration
@@ -49,9 +50,21 @@ namespace InGame.GameConfiguration
     [SerializeField] private float buildDuration = 0.6f;
 
     [SerializeField] private EasingType buildEasingType = EasingType.Linear;
-
     [SerializeField] private Material materialOk;
     [SerializeField] private Material materialNotOk;
+
+    [MinMaxSlider(0.1f, 5f)]
+    [SerializeField] private Vector2 dropDistance;
+
+    [Range(0.1f, 3f)]
+    [SerializeField] private float dropDuration = 0.6f;
+
+    [LabelText("Drop Height Multiplier")]
+    [Range(0.1f, 3f)]
+    [SerializeField] private float dropHeight = 1f;
+
+    [SerializeField] private AnimationCurve dropHeightCurve;
+    [SerializeField] private EasingType dropEasingType;
 
     public float MovementSpeed => movementSpeed;
     public float RotationSpeed => rotationSpeed;
@@ -67,5 +80,10 @@ namespace InGame.GameConfiguration
     public EasingType BuildEasingType => buildEasingType;
     public Material MaterialOk => materialOk;
     public Material MaterialNotOk => materialNotOk;
+    public Vector2 DropDistance => dropDistance;
+    public float DropDuration => dropDuration;
+    public float DropHeight => dropHeight;
+    public AnimationCurve DropHeightCurve => dropHeightCurve;
+    public EasingType DropEasingType => dropEasingType;
   }
 }

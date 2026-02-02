@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using InGame.GameConfiguration;
 using InGame.Managers;
-using InGame.Managers.Map;
 using InGame.Map;
 using InGame.Towers;
 using Sirenix.OdinInspector;
@@ -105,23 +104,36 @@ namespace InGame.Characters.Player.Behaviors
 
         var forward2D = new Vector2(visualTransform.forward.x, visualTransform.forward.z).normalized;
 
-        var offsetX = Mathf.RoundToInt(forward2D.x);
-        var offsetZ = Mathf.RoundToInt(forward2D.y);
 
-        _targetPosition = new GridPosition(
-          currentPosition.X + offsetX,
-          currentPosition.Y + offsetZ
-        );
+        GridPosition? bestPosition = null;
+        var bestDistance = float.MaxValue;
 
-        var distance = Vector3.Distance(
-          visualTransform.position,
-          _targetPosition.WorldPosition
-        );
+        for (var distance = 1; distance <= 3; distance++) {
+          var offsetX = Mathf.RoundToInt(forward2D.x * distance);
+          var offsetZ = Mathf.RoundToInt(forward2D.y * distance);
 
-        // TODO: Magic number to configure
-        const float maxDistance = 1.2f;
+          var candidatePosition = new GridPosition(
+            currentPosition.X + offsetX,
+            currentPosition.Y + offsetZ
+          );
 
-        if (distance <= maxDistance) {
+          var worldDistance = Vector3.Distance(
+            visualTransform.position,
+            candidatePosition.WorldPosition
+          );
+
+          if (
+            worldDistance >= _configuration.DropDistance.x
+            && worldDistance <= _configuration.DropDistance.y
+            && worldDistance < bestDistance
+          ) {
+            bestPosition = candidatePosition;
+            bestDistance = worldDistance;
+          }
+        }
+
+        if (bestPosition.HasValue) {
+          _targetPosition = bestPosition.Value;
           _hauledCursor.gameObject.SetActive(true);
           _hauledCursor.position = _targetPosition.WorldPosition + Vector3.up * 0.1f;
 
@@ -133,8 +145,6 @@ namespace InGame.Characters.Player.Behaviors
         } else {
           _hauledCursor.gameObject.SetActive(false);
         }
-
-        _hauledCursor.position = _targetPosition.WorldPosition;
       }
     }
 
@@ -146,13 +156,47 @@ namespace InGame.Characters.Player.Behaviors
                      && _hauledCursor.gameObject.activeSelf;
 
       if (canBuild) {
-        _hauledBuildable.transform.position = _targetPosition.WorldPosition;
-        _hauledBuildable.transform.rotation = Quaternion.identity;
-        _hauledBuildable.transform.parent = null;
+        StartCoroutine(DropHauledBuildableCoroutine());
         _hauledBuildable.Drop();
         _hauledBuildable = null;
         StopBuild();
       }
+    }
+
+    private IEnumerator DropHauledBuildableCoroutine() {
+      _state.Add(PlayerState.HaulingAnimated);
+
+      var buildable = _hauledBuildable;
+      var buildableTransform = buildable.transform;
+
+      buildableTransform.parent = null;
+      var startPosition = buildableTransform.position;
+      var startRotation = buildableTransform.rotation;
+      var targetDestination = _targetPosition.WorldPosition;
+
+      var elapsedTime = 0f;
+      while (elapsedTime <= _configuration.DropDuration) {
+        elapsedTime += Time.deltaTime;
+        var t = elapsedTime / _configuration.DropDuration;
+        var easedT = Easing.FromType(_configuration.DropEasingType, t);
+
+        var positionXZ = Vector3.Lerp(
+          new Vector3(startPosition.x,     0, startPosition.z),
+          new Vector3(targetDestination.x, 0, targetDestination.z),
+          easedT
+        );
+
+        var heightOffset = _configuration.DropHeightCurve.Evaluate(easedT) * _configuration.DropHeight;
+        var baseY = Mathf.Lerp(startPosition.y, targetDestination.y, easedT);
+        var positionY = baseY + heightOffset;
+
+        buildableTransform.position = new Vector3(positionXZ.x, positionY, positionXZ.z);
+        buildableTransform.rotation = Quaternion.Lerp(startRotation, Quaternion.identity, t);
+
+        yield return null;
+      }
+
+      _state.Remove(PlayerState.HaulingAnimated);
     }
 
     private void StopBuild() {

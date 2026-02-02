@@ -26,3 +26,39 @@ MonoBehaviour:
   buildEasingType: 10
   materialOk: {fileID: 2100000, guid: 5a504b9ac7fb2f14b9b56308affbc9ca, type: 2}
   materialNotOk: {fileID: 2100000, guid: 3d74fb7062b5c76459bafa82ee8880a3, type: 2}
+  dropDuration: 0.25
+  dropHeight: 1.604
+  dropHeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.7015578
+      outSlope: 1.7015578
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.04571428
+    - serializedVersion: 3
+      time: 0.8
+      value: 0
+      inSlope: -6.0888133
+      outSlope: 3.6253836
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.01616694
+      outWeight: 0.11401028
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -4.469265
+      outSlope: -4.469265
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.08664132
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dropEasingType: 1
