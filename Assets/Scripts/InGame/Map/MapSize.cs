@@ -8,6 +8,7 @@ namespace InGame.Map
     public int Depth { get; }
     public Vector3 WorldSize => new(Width, 0, Depth);
     public Vector3 WorldCenter => new(Width / 2f - 0.5f, 0, Depth / 2f - 0.5f);
+    public Vector2 ToVector2 => new(Width, Depth);
 
     public MapSize(int width, int depth) {
       Width = width;

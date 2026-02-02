@@ -9,13 +9,10 @@ namespace InGame.Towers
   {
     public bool IsHauled { get; private set; }
 
+    private bool _collidersInitialized;
     private Collider[] _colliders;
 
-    private void Awake() {
-      _colliders = GetComponentsInChildren<Collider>();
-    }
-
-    public void Haul() {
+    public virtual void Haul() {
       IsHauled = true;
       SetColliderEnabled(false);
     }
@@ -25,7 +22,15 @@ namespace InGame.Towers
       SetColliderEnabled(true);
     }
 
+    private void InitializeColliders() {
+      if (_collidersInitialized) return;
+
+      _colliders = GetComponentsInChildren<Collider>();
+      _collidersInitialized = true;
+    }
+
     private void SetColliderEnabled(bool value) {
+      InitializeColliders();
       foreach (var c in _colliders) {
         c.enabled = value;
       }

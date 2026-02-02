@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace InGame.Managers
 {
+  [HideMonoScript]
   [DefaultExecutionOrder(-100)]
   public abstract class AbstractManager<T> : MonoBehaviour where T : AbstractManager<T>
   {

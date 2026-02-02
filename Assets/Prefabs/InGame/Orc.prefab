@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 6858633963169450720}
   - component: {fileID: -7375690745856024368}
   - component: {fileID: 7930478655373663073}
+  - component: {fileID: 1421976986644220695}
   - component: {fileID: 8773213187750347067}
   - component: {fileID: 8211803810655042306}
-  - component: {fileID: 3981581729441631414}
-  - component: {fileID: 3797154819722360648}
-  - component: {fileID: 1421976986644220695}
+  - component: {fileID: 1071829157442262056}
   m_Layer: 0
   m_Name: Orc
   m_TagString: Enemy
@@ -66,9 +65,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: InGame::InGame.Enemies.Enemy
   animator: {fileID: 5339903186405350963}
   destinationSetter: {fileID: 8773213187750347067}
-  richAI: {fileID: 3981581729441631414}
+  aiPath: {fileID: 1071829157442262056}
   characterController: {fileID: 1421976986644220695}
-  rvoController: {fileID: 3797154819722360648}
+--- !u!143 &1421976986644220695
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621462457237799778}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1
+  m_Radius: 0.22
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &8773213187750347067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +168,7 @@ MonoBehaviour:
   tagEntryCosts: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &3981581729441631414
+--- !u!114 &1071829157442262056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,11 +177,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4621462457237799778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce11ea984e202491d9271f53021d8b89, type: 3}
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.RichAI
+  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.AIPath
   version: 1073741824
-  radius: 0.22
+  radius: 0.33
   height: 1
   simulateMovement: 1
   maxSpeed: 1
@@ -184,66 +207,14 @@ MonoBehaviour:
     sensitivity: 10
     maximumPeriod: 2
     visualizeSensitivity: 0
-  acceleration: 5
+  maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownTime: 0.5
-  wallForce: 3
-  wallDist: 1
-  funnelSimplification: 0
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 0.5
+  alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   preventMovingBackwards: 0
---- !u!114 &3797154819722360648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4621462457237799778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 560112f876f5746c780eca0d404e7139, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.RVO.RVOController
-  version: 1073741824
-  radiusBackingField: 0.5
-  heightBackingField: 2
-  centerBackingField: 1
-  locked: 0
-  lockWhenNotMoving: 0
-  agentTimeHorizon: 2
-  obstacleTimeHorizon: 0.5
-  maxNeighbours: 6
-  layer: 1
-  collidesWith: -1
-  wallAvoidForce: 1
-  wallAvoidFalloff: 1
-  priority: 0.5
-  debug: 0
---- !u!143 &1421976986644220695
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4621462457237799778}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1
-  m_Radius: 0.22
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.5, z: 0}
+  constrainInsideGraph: 1
 --- !u!1001 &1756771737860965426
 PrefabInstance:
   m_ObjectHideFlags: 0

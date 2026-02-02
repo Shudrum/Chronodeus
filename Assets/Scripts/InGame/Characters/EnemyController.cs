@@ -2,7 +2,6 @@
 using InGame.Characters.Player.Behaviors;
 using InGame.GameConfiguration;
 using Pathfinding;
-using Pathfinding.RVO;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utils;
@@ -18,44 +17,28 @@ namespace InGame.Characters
     private static readonly int AnimatorMovementSpeed = Animator.StringToHash("MovementSpeed");
 
     [Title("Enemy definition")]
-    [SerializeField]
-    private Animator animator;
-
-    [SerializeField]
-    private AIDestinationSetter destinationSetter;
-
-    [SerializeField]
-    private RichAI richAI;
-
-    [SerializeField]
-    private CharacterController characterController;
-
-    [SerializeField]
-    private RVOController rvoController;
+    [SerializeField] private Animator animator;
+    [SerializeField] private AIDestinationSetter destinationSetter;
+    [SerializeField] private AIPath aiPath;
+    [SerializeField] private CharacterController characterController;
 
     private Coroutine _damageCoroutine;
 
     // TODO: Magic number to configure
-    [ShowInInspector]
-    [HideInEditorMode]
-    public bool ReachedDestination => richAI.remainingDistance < 0.3f;
-
-    [ShowInInspector]
-    [HideInEditorMode]
-    public float RemainingDistance => richAI.remainingDistance;
+    public bool ReachedDestination => RemainingDistance < 0.3f;
+    public float RemainingDistance => aiPath.remainingDistance;
 
     public void UpdateAnimation() {
-      animator.SetFloat(AnimatorMovementSpeed, richAI.velocity.magnitude);
+      animator.SetFloat(AnimatorMovementSpeed, aiPath.velocity.magnitude);
     }
 
     public void SetMovementSpeed(float movementSpeed) {
-      richAI.acceleration = movementSpeed * AccelerationRatio;
-      richAI.maxSpeed = movementSpeed;
+      aiPath.maxAcceleration = movementSpeed * AccelerationRatio;
+      aiPath.maxSpeed = movementSpeed;
     }
 
     public void SetDestination(Transform destination) {
       destinationSetter.target = destination;
-      rvoController.priority = Random.Range(0.01f, 0.99f);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit) {

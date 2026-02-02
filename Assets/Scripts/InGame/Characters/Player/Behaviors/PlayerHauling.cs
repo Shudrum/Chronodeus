@@ -197,6 +197,10 @@ namespace InGame.Characters.Player.Behaviors
         yield return null;
 
         MapManager.Instance.UpdatePathAroundObject(_targetPosition, buildable);
+        if (buildable is Tower tower) {
+          TowersManager.Instance.RegisterTower(tower);
+          tower.Enable();
+        }
       }
 
       _state.Remove(PlayerState.HaulingAnimated);

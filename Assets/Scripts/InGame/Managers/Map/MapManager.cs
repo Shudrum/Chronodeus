@@ -39,7 +39,7 @@ namespace InGame.Managers.Map
       );
       var guo = new GraphUpdateObject(bounds) {
         updatePhysics = true,
-        
+
       };
       pathfind.UpdateGraphs(bounds);
     }
@@ -52,14 +52,17 @@ namespace InGame.Managers.Map
 
     private void ResizePathfind() {
       var mapSize = Configuration.Instance.Map.Size;
-      var recastGraph = AstarPath.active.data.recastGraph;
+      var gridGraph = AstarPath.active.data.gridGraph;
 
-      recastGraph.forcedBoundsCenter = mapSize.WorldCenter;
-      recastGraph.forcedBoundsSize = mapSize.WorldSize + Vector3.up * 10f;
+      gridGraph.center = mapSize.WorldCenter;
+      gridGraph.unclampedSize = mapSize.ToVector2;
+
+      // recastGraph.forcedBoundsCenter = mapSize.WorldCenter;
+      // recastGraph.forcedBoundsSize = mapSize.WorldSize + Vector3.up * 10f;
     }
 
     private void ComputePathfind() {
-      AstarPath.active.data.recastGraph.Scan();
+      AstarPath.active.data.gridGraph.Scan();
     }
 
     private void GatherDestinations() {

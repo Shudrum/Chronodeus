@@ -14,6 +14,8 @@ namespace InGame.Managers
     [SerializeField]
     private float spawnFrequency = 1f;
 
+    public IReadOnlyList<Enemy> Enemies => _enemies;
+
     private readonly List<Enemy> _enemies = new();
     private readonly List<Enemy> _enemiesToRemove = new();
 
@@ -26,7 +28,7 @@ namespace InGame.Managers
 
     public void RemoveEnemy(Enemy enemy) {
       _enemiesToRemove.Add(enemy);
-      Destroy(enemy.gameObject);
+      enemy.Destroy();
     }
 
     private void TrySpawn() {

@@ -9,26 +9,37 @@ namespace InGame.Characters
   public class Enemy : MonoBehaviour
   {
     [Title("Behavior")]
-    [SerializeField]
     [Range(0.1f, 10f)]
-    private float movementSpeed = 1f;
+    [SerializeField] private float movementSpeed = 1f;
 
-    private EnemyController _enemyController;
+    private Transform _transform;
+
+    public Vector3 Position => _transform.position;
+    public float RemainingDistance => Controller.RemainingDistance;
+
+    public EnemyController Controller { get; private set; }
+    public bool IsDestroyed { get; private set; }
 
     private void Awake() {
-      _enemyController = GetComponent<EnemyController>();
-      _enemyController.SetMovementSpeed(movementSpeed);
+      Controller = GetComponent<EnemyController>();
+      Controller.SetMovementSpeed(movementSpeed);
+      _transform = transform;
     }
 
     public void OnUpdate() {
-      _enemyController.UpdateAnimation();
-      if (_enemyController.ReachedDestination) {
+      Controller.UpdateAnimation();
+      if (Controller.ReachedDestination) {
         WavesManager.Instance.RemoveEnemy(this);
       }
     }
 
     public void SetDestination(Transform destination) {
-      _enemyController.SetDestination(destination);
+      Controller.SetDestination(destination);
+    }
+
+    public void Destroy() {
+      IsDestroyed = true;
+      Destroy(gameObject);
     }
   }
 }
