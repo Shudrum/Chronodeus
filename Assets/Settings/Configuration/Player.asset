@@ -26,6 +26,7 @@ MonoBehaviour:
   buildEasingType: 10
   materialOk: {fileID: 2100000, guid: 5a504b9ac7fb2f14b9b56308affbc9ca, type: 2}
   materialNotOk: {fileID: 2100000, guid: 3d74fb7062b5c76459bafa82ee8880a3, type: 2}
+  dropDistance: {x: 1.1423976, y: 1.9512497}
   dropDuration: 0.25
   dropHeight: 1.604
   dropHeightCurve:

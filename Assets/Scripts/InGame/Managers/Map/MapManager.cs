@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using InGame.GameConfiguration;
 using InGame.Map;
+using Pathfinding;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace InGame.Managers.Map
 {
   public class MapManager : AbstractManager<MapManager>
   {
+    [Title("Components")]
     [SerializeField] private Transform ground;
     [SerializeField] private AstarPath pathfind;
 
@@ -25,10 +28,20 @@ namespace InGame.Managers.Map
       var generator = new ProceduralGenerator();
       yield return generator.Generate();
 
-      // GridManager.InstantiateObjects();
       ComputePathfind();
       GatherDestinations();
+    }
 
+    public void UpdatePathAroundObject(GridPosition position, MapObject mapObject) {
+      var bounds = new Bounds(
+        position.WorldPosition + mapObject.Size.WorldOffset,
+        mapObject.Size.ToVector3 + Vector3.one
+      );
+      var guo = new GraphUpdateObject(bounds) {
+        updatePhysics = true,
+        
+      };
+      pathfind.UpdateGraphs(bounds);
     }
 
     private void ResizeGround() {

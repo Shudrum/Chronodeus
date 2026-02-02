@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: InGame::InGame.Managers.Map.MapManager
   ground: {fileID: 1942131813}
-  pathfind: {fileID: 0}
+  pathfind: {fileID: 1982364490}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using InGame.GameConfiguration;
 using InGame.Managers;
+using InGame.Managers.Map;
 using InGame.Map;
 using InGame.Towers;
 using Sirenix.OdinInspector;
@@ -194,6 +195,8 @@ namespace InGame.Characters.Player.Behaviors
         buildableTransform.rotation = Quaternion.Lerp(startRotation, Quaternion.identity, t);
 
         yield return null;
+
+        MapManager.Instance.UpdatePathAroundObject(_targetPosition, buildable);
       }
 
       _state.Remove(PlayerState.HaulingAnimated);
